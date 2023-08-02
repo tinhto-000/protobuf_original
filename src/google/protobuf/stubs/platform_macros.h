@@ -87,7 +87,7 @@
 # if (((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4))
 // We fallback to the generic Clang/GCC >= 4.7 implementation in atomicops.h
 # elif defined(__clang__)
-#  if !__has_extension(c_atomic)
+#  if !__has_extension(c_atomic) && !defined(__MVS__)
 GOOGLE_PROTOBUF_PLATFORM_ERROR
 #  endif
 // We fallback to the generic Clang/GCC >= 4.7 implementation in atomicops.h
@@ -133,6 +133,11 @@ GOOGLE_PROTOBUF_PLATFORM_ERROR
 #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED < 1070
 // __thread keyword requires at least 10.7
 #define GOOGLE_PROTOBUF_NO_THREADLOCAL
+#endif
+
+#if defined(__MVS__)
+#define GOOGLE_PROTOBUF_NO_THREADLOCAL
+#define PATH_MAX 1024
 #endif
 
 #endif  // GOOGLE_PROTOBUF_PLATFORM_MACROS_H_

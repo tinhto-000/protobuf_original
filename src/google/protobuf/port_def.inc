@@ -711,7 +711,7 @@ static_assert(PROTOBUF_ABSL_MIN(20230125, 3),
 # elif !defined(__CYGWIN__) && \
     __has_cpp_attribute(clang::require_constant_initialization) && \
         ((defined(__APPLE__) && PROTOBUF_CLANG_MIN(13, 0)) ||             \
-     (!defined(__APPLE__) && PROTOBUF_CLANG_MIN(12, 0)))
+     (!defined(__APPLE__) && PROTOBUF_CLANG_MIN(12, 0))) && !defined (__MVS__)
 #  define PROTOBUF_CONSTINIT [[clang::require_constant_initialization]]
 #  define PROTOBUF_CONSTEXPR constexpr
 # endif
@@ -765,7 +765,7 @@ static_assert(PROTOBUF_ABSL_MIN(20230125, 3),
 #endif
 #if defined(__GNUC__) && (!defined(__APPLE__) || defined(__clang__)) && \
     !((defined(sun) || defined(__sun)) &&                                     \
-      (defined(__SVR4) || defined(__svr4__)))
+      (defined(__SVR4) || defined(__svr4__))) && !defined(__MVS__)
 #define PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 __attribute__((init_priority((101))))
 #define PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 __attribute__((init_priority((102))))
 #else

@@ -56,6 +56,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#ifdef __MVS__
+#include <sys/time.h>
+#endif
+
 #include <algorithm>
 #include <chrono>
 #include <iterator>
