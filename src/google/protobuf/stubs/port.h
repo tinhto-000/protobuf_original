@@ -66,7 +66,7 @@
 #elif defined(_AIX) || defined(__TOS_AIX__)
 #include <sys/machine.h>  // BYTE_ORDER
 #else
-#if !defined(__QNX__)
+#if !defined(__QNX__) && !defined(__MVS__)
 #include <endian.h>  // __BYTE_ORDER
 #endif
 #endif

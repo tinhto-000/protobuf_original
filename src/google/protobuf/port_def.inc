@@ -648,7 +648,7 @@
 // Clang-cl on Windows raises error also.
 #elif !defined(_MSC_VER) && __has_cpp_attribute(clang::require_constant_initialization) && \
     ((defined(__APPLE__) && __clang_major__ >= 13) ||                \
-     (!defined(__APPLE__) && __clang_major__ >= 12))
+     (!defined(__APPLE__) && __clang_major__ >= 12)) && !defined (__MVS__)
 #define PROTOBUF_CONSTINIT [[clang::require_constant_initialization]]
 #define PROTOBUF_CONSTEXPR constexpr
 #elif PROTOBUF_GNUC_MIN(12, 2)
@@ -704,9 +704,9 @@
 #ifdef PROTOBUF_ATTRIBUTE_INIT_PRIORITY2
 #error PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 was previously defined
 #endif
-#if PROTOBUF_GNUC_MIN(3, 0) && (!defined(__APPLE__) || defined(__clang__)) && \
+#if (PROTOBUF_GNUC_MIN(3, 0) && (!defined(__APPLE__) || defined(__clang__)) && \
     !((defined(sun) || defined(__sun)) &&                                     \
-      (defined(__SVR4) || defined(__svr4__)))
+      (defined(__SVR4) || defined(__svr4__)))) && !defined(__MVS__)
 #define PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 __attribute__((init_priority((101))))
 #define PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 __attribute__((init_priority((102))))
 #else
