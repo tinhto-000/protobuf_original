@@ -36,6 +36,10 @@
 
 #include <google/protobuf/stubs/platform_macros.h>
 
+#if defined(__MVS__)
+#include "zos-base.h"
+#endif
+
 #include <stdio.h>
 #include <sys/types.h>
 #ifdef major
@@ -518,6 +522,11 @@ bool CommandLineInterface::GeneratorContextImpl::WriteAllToDisk(
       std::cerr << filename << ": " << strerror(error);
       return false;
     }
+    
+#if defined(__MVS__)
+    // force ASCII tagging on the file
+    __chgfdccsid(file_descriptor, 819);
+#endif
 
     // Write the file.
     while (size > 0) {
